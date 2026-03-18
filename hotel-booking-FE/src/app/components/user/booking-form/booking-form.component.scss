@@ -1,0 +1,431 @@
+// ============================================
+// Booking Form - Enhanced Styles
+// ============================================
+
+// Variables
+$primary-color: #667eea;
+$secondary-color: #764ba2;
+$success-color: #10b981;
+$error-color: #ef4444;
+$text-dark: #1f2937;
+$text-light: #6b7280;
+$background-light: #f9fafb;
+$border-color: #e5e7eb;
+$white: #ffffff;
+
+// Gradients
+$gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+$gradient-success: linear-gradient(135deg, #10b981 0%, #059669 100%);
+
+// Mixins
+@mixin gradient-bg {
+    background: $gradient-primary;
+}
+
+@mixin card-shadow {
+    box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+}
+
+@mixin hover-shadow {
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+}
+
+// Animations
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+@keyframes slideIn {
+    from {
+        opacity: 0;
+        transform: translateY(-30px) scale(0.95);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) scale(1);
+    }
+}
+
+@keyframes spin {
+    to { transform: rotate(360deg); }
+}
+
+@keyframes pulse {
+    0%, 100% { transform: scale(1); }
+    50% { transform: scale(1.02); }
+}
+
+// Modal Overlay
+.booking-form-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.6);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    animation: fadeIn 0.3s ease-out;
+    padding: 1rem;
+}
+
+// Modal Content
+.booking-form-modal {
+    background: $white;
+    border-radius: 20px;
+    max-width: 600px;
+    width: 100%;
+    max-height: 90vh;
+    overflow-y: auto;
+    @include card-shadow;
+    animation: slideIn 0.4s ease-out;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+
+    .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        padding: 1.5rem 2rem;
+        border-bottom: 2px solid #f3f4f6;
+        background: linear-gradient(180deg, $white 0%, #fafafa 100%);
+        border-radius: 20px 20px 0 0;
+        position: sticky;
+        top: 0;
+
+        h3 {
+            font-size: 1.375rem;
+            font-weight: 700;
+            color: #111827;
+            margin: 0;
+            letter-spacing: -0.3px;
+        }
+
+        .close-btn {
+            background: #f3f4f6;
+            border: none;
+            width: 36px;
+            height: 36px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: #6b7280;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.25s ease;
+            font-size: 1.25rem;
+            font-weight: 500;
+
+            &:hover {
+                background: #ef4444;
+                color: $white;
+                transform: rotate(90deg);
+            }
+        }
+    }
+
+    .modal-body {
+        padding: 2rem;
+
+        .room-summary {
+            background: linear-gradient(135deg, rgba(102, 126, 234, 0.08) 0%, rgba(118, 75, 162, 0.08) 100%);
+            border-radius: 16px;
+            padding: 1.5rem;
+            margin-bottom: 2rem;
+            border: 1px solid rgba(102, 126, 234, 0.15);
+            position: relative;
+            overflow: hidden;
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                left: 0;
+                width: 4px;
+                height: 100%;
+                background: $gradient-primary;
+                border-radius: 4px 0 0 4px;
+            }
+
+            .room-info {
+                h4 {
+                    font-size: 1.25rem;
+                    font-weight: 700;
+                    color: #111827;
+                    margin: 0 0 0.5rem 0;
+                }
+
+                p {
+                    margin: 0 0 0.5rem 0;
+                    color: #6b7280;
+                    font-size: 0.9rem;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    &.room-price {
+                        font-weight: 800;
+                        background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+                        -webkit-background-clip: text;
+                        -webkit-text-fill-color: transparent;
+                        background-clip: text;
+                        font-size: 1.375rem;
+                    }
+
+                    &.room-capacity {
+                        font-weight: 600;
+                        color: #374151;
+                    }
+
+                    &.room-amenities {
+                        font-size: 0.85rem;
+                        color: #6b7280;
+                        line-height: 1.5;
+                    }
+                }
+            }
+        }
+
+        .booking-form {
+            .form-row {
+                display: grid;
+                grid-template-columns: 1fr 1fr;
+                gap: 1.25rem;
+                margin-bottom: 0.5rem;
+            }
+
+            .form-group {
+                margin-bottom: 1.5rem;
+
+                label {
+                    display: block;
+                    font-weight: 600;
+                    color: #374151;
+                    margin-bottom: 0.5rem;
+                    font-size: 0.875rem;
+                }
+
+                input,
+                select,
+                textarea {
+                    width: 100%;
+                    padding: 0.875rem 1rem;
+                    border: 2px solid #e5e7eb;
+                    border-radius: 12px;
+                    font-size: 0.95rem;
+                    transition: all 0.25s ease;
+                    background: $white;
+                    color: #1f2937;
+
+                    &:focus {
+                        outline: none;
+                        border-color: #3b82f6;
+                        box-shadow: 0 0 0 3px rgba(59, 130, 246, 0.1);
+                    }
+
+                    &::placeholder {
+                        color: #9ca3af;
+                    }
+                }
+
+                select {
+                    cursor: pointer;
+                    appearance: none;
+                    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='none' viewBox='0 0 24 24' stroke='%236b7280'%3E%3Cpath stroke-linecap='round' stroke-linejoin='round' stroke-width='2' d='M19 9l-7 7-7-7'%3E%3C/path%3E%3C/svg%3E");
+                    background-repeat: no-repeat;
+                    background-position: right 0.75rem center;
+                    background-size: 1.25rem;
+                    padding-right: 2.5rem;
+                }
+
+                textarea {
+                    resize: vertical;
+                    min-height: 100px;
+                    border-radius: 12px;
+                }
+            }
+
+            .booking-summary {
+                background: #f9fafb;
+                border-radius: 16px;
+                padding: 1.5rem;
+                margin-bottom: 2rem;
+                border: 1px solid #e5e7eb;
+
+                h4 {
+                    font-size: 1.125rem;
+                    font-weight: 700;
+                    color: #111827;
+                    margin: 0 0 1.25rem 0;
+                }
+
+                .summary-item {
+                    display: flex;
+                    justify-content: space-between;
+                    align-items: center;
+                    margin-bottom: 0.875rem;
+                    font-size: 0.9rem;
+
+                    &:last-child {
+                        margin-bottom: 0;
+                    }
+
+                    span:first-child {
+                        color: #6b7280;
+                        font-weight: 500;
+                    }
+
+                    span:last-child {
+                        color: #1f2937;
+                        font-weight: 600;
+                    }
+
+                    &.total {
+                        border-top: 2px dashed #e5e7eb;
+                        padding-top: 1rem;
+                        margin-top: 1rem;
+                        font-size: 1.1rem;
+
+                        span:first-child {
+                            color: #111827;
+                            font-weight: 700;
+                        }
+
+                        span:last-child {
+                            background: linear-gradient(135deg, #059669 0%, #10b981 100%);
+                            -webkit-background-clip: text;
+                            -webkit-text-fill-color: transparent;
+                            background-clip: text;
+                            font-size: 1.5rem;
+                            font-weight: 800;
+                        }
+                    }
+                }
+            }
+
+            .form-actions {
+                display: flex;
+                gap: 1rem;
+                justify-content: flex-end;
+
+                .cancel-btn {
+                    padding: 0.875rem 1.75rem;
+                    background: $white;
+                    color: #6b7280;
+                    border: 2px solid #e5e7eb;
+                    border-radius: 12px;
+                    font-weight: 600;
+                    font-size: 0.9rem;
+                    cursor: pointer;
+                    transition: all 0.25s ease;
+
+                    &:hover {
+                        background: #f3f4f6;
+                        border-color: #d1d5db;
+                        color: #374151;
+                    }
+                }
+
+                .submit-btn {
+                    padding: 0.875rem 2rem;
+                    @include gradient-bg;
+                    color: $white;
+                    border: none;
+                    border-radius: 12px;
+                    font-weight: 700;
+                    font-size: 0.95rem;
+                    cursor: pointer;
+                    transition: all 0.25s ease;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+                    box-shadow: 0 4px 15px rgba(102, 126, 234, 0.3);
+
+                    &:hover:not(:disabled) {
+                        transform: translateY(-2px);
+                        box-shadow: 0 6px 20px rgba(102, 126, 234, 0.4);
+                    }
+
+                    &:disabled {
+                        opacity: 0.6;
+                        cursor: not-allowed;
+                        transform: none;
+                    }
+
+                    .loading-spinner {
+                        display: inline-block;
+                        width: 16px;
+                        height: 16px;
+                        border: 2px solid rgba(255, 255, 255, 0.3);
+                        border-radius: 50%;
+                        border-top-color: white;
+                        animation: spin 1s linear infinite;
+                    }
+                }
+            }
+        }
+    }
+}
+
+// Responsive Design
+@media (max-width: 768px) {
+    .booking-form-modal {
+        max-height: 95vh;
+        margin: 0.5rem;
+
+        .modal-header {
+            padding: 1.25rem 1.5rem;
+
+            h3 {
+                font-size: 1.125rem;
+            }
+        }
+
+        .modal-body {
+            padding: 1.5rem;
+
+            .booking-form {
+                .form-row {
+                    grid-template-columns: 1fr;
+                    gap: 0.5rem;
+                }
+
+                .form-group {
+                    margin-bottom: 1rem;
+                }
+
+                .form-actions {
+                    flex-direction: column-reverse;
+
+                    button {
+                        width: 100%;
+                        justify-content: center;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .booking-form-overlay {
+        padding: 0.5rem;
+    }
+
+    .booking-form-modal {
+        border-radius: 16px;
+
+        .modal-header {
+            padding: 1rem 1.25rem;
+        }
+
+        .modal-body {
+            padding: 1.25rem;
+        }
+    }
+}
+

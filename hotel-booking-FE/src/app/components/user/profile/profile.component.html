@@ -1,0 +1,27 @@
+<div class="profile-section">
+    <div class="profile-card">
+        <div class="profile-header">
+            <div class="profile-avatar">
+                <span class="avatar-text">{{ currentUser?.username?.charAt(0)?.toUpperCase() }}</span>
+            </div>
+            <div class="profile-info">
+                <h3>{{ currentUser?.username }}</h3>
+                <p class="user-email">{{ currentUser?.email }}</p>
+            </div>
+        </div>
+        <div class="profile-details">
+            <div class="detail-item">
+                <span class="detail-label">Phone:</span>
+                <span class="detail-value">{{ currentUser?.phone || 'Not provided' }}</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">City:</span>
+                <span class="detail-value">{{ currentUser?.city || 'Not provided' }}</span>
+            </div>
+            <div class="detail-item">
+                <span class="detail-label">Member since:</span>
+                <span class="detail-value">{{ formatDate(currentUser?.createdAt) }}</span>
+            </div>
+        </div>
+    </div>
+</div>

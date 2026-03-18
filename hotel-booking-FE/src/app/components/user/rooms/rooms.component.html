@@ -1,0 +1,33 @@
+<div class="rooms-section">
+    <div class="rooms-grid">
+        <div class="room-card" *ngFor="let room of rooms">
+            <div class="room-header">
+                <h4>Room {{ room.roomNumber }}</h4>
+                <span class="status-badge available">Available</span>
+            </div>
+            <div class="room-details">
+                <p class="room-type">{{ room.type }}</p>
+                <p class="room-price">₹{{ room.price }}/night</p>
+                <p class="room-capacity">Capacity: {{ room.capacity }} persons</p>
+                <p class="room-amenities">{{ room.amenities }}</p>
+            </div>
+            <div class="room-actions">
+                <button class="book-btn" (click)="bookRoom.emit(room)">
+                    <span>📅</span>
+                    Book Now
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <div class="empty-state" *ngIf="rooms.length === 0 && !isLoading">
+        <div class="empty-icon">🏠</div>
+        <h3>No Rooms Available</h3>
+        <p>All rooms are currently occupied. Please check back later.</p>
+    </div>
+
+    <div class="loading-state" *ngIf="isLoading && rooms.length === 0">
+        <div class="loading-icon">⏳</div>
+        <h3>Loading Rooms...</h3>
+    </div>
+</div>

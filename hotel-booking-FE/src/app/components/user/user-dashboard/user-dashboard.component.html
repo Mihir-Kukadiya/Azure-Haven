@@ -1,0 +1,119 @@
+<div class="user-dashboard">
+    <!-- Sidebar -->
+    <div class="sidebar">
+        <div class="sidebar-header">
+            <div class="hotel-logo">
+                <div class="logo-icon">
+                    <span class="logo-text">AH</span>
+                </div>
+                <div class="logo-info">
+                    <h2>Azure Haven</h2>
+                    <p>Guest Portal</p>
+                </div>
+            </div>
+        </div>
+
+        <nav class="sidebar-nav">
+            <a class="nav-item" [class.active]="activeTab === 'dashboard'" (click)="setActiveTab('dashboard')">
+                <div class="nav-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M3,13H11V3H3M3,21H11V15H3M13,21H21V11H13M13,3V9H21V3" />
+                    </svg>
+                </div>
+                <span class="nav-text">Dashboard</span>
+                <div class="nav-indicator"></div>
+            </a>
+
+            <a class="nav-item" [class.active]="activeTab === 'rooms'" (click)="setActiveTab('rooms')">
+                <div class="nav-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M7,13H17V19H7V13M9,11A1,1 0 0,0 8,12H6A1,1 0 0,0 5,13V18A1,1 0 0,0 6,19H8A1,1 0 0,0 9,18V16H15V18A1,1 0 0,0 16,19H18A1,1 0 0,0 19,18V13A1,1 0 0,0 18,12H16A1,1 0 0,0 15,11H9M7,10H17L19,8V7A1,1 0 0,0 18,6H6A1,1 0 0,0 5,7V8L7,10Z" />
+                    </svg>
+                </div>
+                <span class="nav-text">Browse Rooms</span>
+                <div class="nav-indicator"></div>
+            </a>
+
+            <a class="nav-item" [class.active]="activeTab === 'bookings'" (click)="setActiveTab('bookings')">
+                <div class="nav-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M16.5,16L15.5,17L12,13.5L8.5,17L7.5,16L11,12.5L7.5,9L8.5,8L12,11.5L15.5,8L16.5,9L13,12.5L16.5,16Z" />
+                    </svg>
+                </div>
+                <span class="nav-text">My Bookings</span>
+                <div class="nav-indicator"></div>
+            </a>
+
+            <a class="nav-item" [class.active]="activeTab === 'profile'" (click)="setActiveTab('profile')">
+                <div class="nav-icon">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
+                    </svg>
+                </div>
+                <span class="nav-text">My Profile</span>
+                <div class="nav-indicator"></div>
+            </a>
+        </nav>
+
+        <div class="sidebar-footer">
+            <div class="user-info">
+                <div class="user-avatar">
+                    <span class="avatar-text">{{ currentUser?.username?.charAt(0)?.toUpperCase() }}</span>
+                </div>
+                <div class="user-details">
+                    <p class="username">{{ currentUser?.username }}</p>
+                    <p class="user-role">Guest</p>
+                </div>
+            </div>
+            <button class="logout-btn" (click)="logout()">
+                <svg class="logout-icon" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M16,17V14H9V10H16V7L21,12L16,17M14,2A2,2 0 0,1 16,4V6H14V4H5V20H14V18H16V20A2,2 0 0,1 14,22H5A2,2 0 0,1 3,20V4A2,2 0 0,1 5,2H14Z" />
+                </svg>
+                Logout
+            </button>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="content-header">
+            <div class="header-info">
+                <h1>{{ getPageTitle() }}</h1>
+                <p>{{ getPageDescription() }}</p>
+            </div>
+            <div class="header-actions">
+                <div class="current-time">
+                    {{ getCurrentTime() | date:'dd/MM/yyyy HH:mm' }}
+                </div>
+            </div>
+        </div>
+
+        <div class="content-body">
+            <!-- Dashboard Overview -->
+            <app-user-overview *ngIf="activeTab === 'dashboard'" [userId]="currentUser?._id || currentUser?.id"
+                (navigate)="setActiveTab($event)">
+            </app-user-overview>
+
+            <!-- Available Rooms -->
+            <app-user-rooms *ngIf="activeTab === 'rooms'" (bookRoom)="bookRoom($event)">
+            </app-user-rooms>
+
+            <!-- My Bookings -->
+            <app-user-bookings *ngIf="activeTab === 'bookings'" [userId]="currentUser?._id || currentUser?.id">
+            </app-user-bookings>
+
+            <!-- My Profile -->
+            <app-user-profile *ngIf="activeTab === 'profile'" [userId]="currentUser?._id || currentUser?.id">
+            </app-user-profile>
+        </div>
+    </div>
+</div>
+
+<!-- Booking Form Modal -->
+<app-booking-form *ngIf="showBookingForm" [room]="selectedRoom" [currentUser]="currentUser"
+    (bookingSubmitted)="onBookingSubmitted($event)" (cancelled)="onBookingCancelled()">
+</app-booking-form>

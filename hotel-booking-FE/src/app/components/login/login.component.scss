@@ -1,0 +1,655 @@
+// Variables
+$primary-color: #2563eb;
+$secondary-color: #1e40af;
+$accent-color: #3b82f6;
+$text-dark: #1f2937;
+$text-light: #6b7280;
+$border-color: #e5e7eb;
+$success-color: #10b981;
+$error-color: #ef4444;
+$background-light: #f8fafc;
+$white: #ffffff;
+
+// Animations
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+@keyframes float {
+
+    0%,
+    100% {
+        transform: translateY(0px) rotate(0deg);
+    }
+
+    50% {
+        transform: translateY(-20px) rotate(180deg);
+    }
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes slideInLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-30px);
+    }
+
+    to {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+
+// Main container
+.login-page {
+    min-height: 100vh;
+    width: 100vw;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 50%, #f093fb 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+    position: relative;
+    overflow: hidden;
+    font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+}
+
+// Animated background
+.background-animation {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    z-index: 1;
+}
+
+.floating-shape {
+    position: absolute;
+    background: rgba(255, 255, 255, 0.1);
+    border-radius: 50%;
+    animation: float 6s ease-in-out infinite;
+
+    &.shape-1 {
+        width: 80px;
+        height: 80px;
+        top: 10%;
+        left: 10%;
+        animation-delay: 0s;
+    }
+
+    &.shape-2 {
+        width: 120px;
+        height: 120px;
+        top: 20%;
+        right: 15%;
+        animation-delay: 1s;
+    }
+
+    &.shape-3 {
+        width: 60px;
+        height: 60px;
+        bottom: 30%;
+        left: 20%;
+        animation-delay: 2s;
+    }
+
+    &.shape-4 {
+        width: 100px;
+        height: 100px;
+        bottom: 10%;
+        right: 25%;
+        animation-delay: 3s;
+    }
+
+    &.shape-5 {
+        width: 90px;
+        height: 90px;
+        top: 50%;
+        left: 5%;
+        animation-delay: 4s;
+    }
+
+    &.shape-6 {
+        width: 70px;
+        height: 70px;
+        top: 60%;
+        right: 10%;
+        animation-delay: 5s;
+    }
+}
+
+// Container
+.login-container {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    max-width: 1000px;
+    display: flex;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    box-shadow:
+        0 20px 60px rgba(0, 0, 0, 0.1),
+        0 8px 25px rgba(0, 0, 0, 0.08);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    overflow: hidden;
+    animation: fadeInUp 0.8s ease-out;
+}
+
+// Left Side - Hotel Info
+.hotel-info-side {
+    flex: 1;
+    background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+    padding: 2rem 2rem;
+    color: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: -50%;
+        right: -50%;
+        width: 200%;
+        height: 200%;
+        background: url('data:image/svg+xml,<svg width="60" height="60" viewBox="0 0 60 60" xmlns="http://www.w3.org/2000/svg"><g fill="none" fill-rule="evenodd"><g fill="%23ffffff" fill-opacity="0.05"><pattern id="pattern" patternUnits="userSpaceOnUse" width="60" height="60"><circle cx="30" cy="30" r="2"/></pattern><rect width="100%" height="100%" fill="url(%23pattern)"/></g></g></svg>');
+        animation: float 20s linear infinite;
+    }
+
+    .hotel-logo {
+        text-align: center;
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 1;
+
+        .hotel-icon {
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.2);
+            border: 2px solid rgba(255, 255, 255, 0.3);
+            border-radius: 16px;
+            margin: 0 auto 0.75rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+            backdrop-filter: blur(10px);
+
+            .logo-text {
+                font-size: 1.5rem;
+                font-weight: 700;
+                color: white;
+                letter-spacing: 1px;
+                text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+            }
+
+            &::before {
+                content: '';
+                position: absolute;
+                top: -2px;
+                left: -2px;
+                right: -2px;
+                bottom: -2px;
+                background: linear-gradient(45deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.3));
+                border-radius: 16px;
+                z-index: -1;
+            }
+        }
+
+        .hotel-name {
+            font-size: 2rem;
+            font-weight: 700;
+            margin: 0 0 0.25rem 0;
+            letter-spacing: -0.5px;
+        }
+
+        .hotel-tagline {
+            font-size: 1rem;
+            opacity: 0.9;
+            font-weight: 300;
+        }
+    }
+
+    .welcome-message {
+        text-align: center;
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 1;
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            margin-bottom: 1rem;
+            color: white;
+        }
+
+        p {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            line-height: 1.5;
+        }
+    }
+
+    .hotel-features {
+        position: relative;
+        z-index: 1;
+        margin-bottom: 2rem;
+
+        .feature-item {
+            display: flex;
+            align-items: flex-start;
+            margin-bottom: 1.5rem;
+            animation: slideInLeft 0.6s ease-out;
+            animation-fill-mode: backwards;
+
+            &:nth-child(1) {
+                animation-delay: 0.1s;
+            }
+
+            &:nth-child(2) {
+                animation-delay: 0.2s;
+            }
+
+            &:nth-child(3) {
+                animation-delay: 0.3s;
+            }
+
+            .feature-icon {
+                width: 40px;
+                height: 40px;
+                background: rgba(255, 255, 255, 0.15);
+                border-radius: 12px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                margin-right: 1rem;
+                flex-shrink: 0;
+
+                svg {
+                    width: 20px;
+                    height: 20px;
+                    color: white;
+                }
+            }
+
+            .feature-text {
+                h4 {
+                    font-size: 1rem;
+                    font-weight: 600;
+                    margin-bottom: 0.25rem;
+                    color: white;
+                }
+
+                p {
+                    font-size: 0.85rem;
+                    opacity: 0.85;
+                    line-height: 1.4;
+                }
+            }
+        }
+    }
+
+    .customer-rating {
+        position: relative;
+        z-index: 1;
+        text-align: center;
+        padding-top: 1.5rem;
+        border-top: 1px solid rgba(255, 255, 255, 0.2);
+
+        .stars {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 0.5rem;
+
+            svg {
+                width: 18px;
+                height: 18px;
+                color: #fbbf24;
+                margin: 0 2px;
+            }
+        }
+
+        .rating-text {
+            font-size: 0.8rem;
+            opacity: 0.9;
+        }
+    }
+}
+
+// Right Side - Login Form
+.login-card {
+    flex: 1;
+    padding: 2rem 2rem;
+    background: white;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+// Form header
+.form-header {
+    text-align: center;
+    margin-bottom: 2rem;
+
+    h2 {
+        font-size: 1.8rem;
+        font-weight: 600;
+        color: $text-dark;
+        margin: 0 0 0.5rem 0;
+    }
+
+    p {
+        color: $text-light;
+        font-size: 0.9rem;
+        margin: 0;
+    }
+}
+
+// Form
+.login-form {
+    .form-group {
+        margin-bottom: 1.5rem;
+
+        label {
+            display: block;
+            font-weight: 500;
+            color: $text-dark;
+            margin-bottom: 0.5rem;
+            font-size: 0.875rem;
+        }
+
+        .input-wrapper {
+            position: relative;
+            display: flex;
+            align-items: center;
+
+            .input-icon {
+                position: absolute;
+                left: 1rem;
+                width: 20px;
+                height: 20px;
+                color: $text-light;
+                z-index: 2;
+                fill: currentColor;
+            }
+
+            input {
+                width: 100%;
+                padding: 1rem 1rem 1rem 3rem;
+                border: 2px solid $border-color;
+                border-radius: 12px;
+                font-size: 1rem;
+                background: $white;
+                transition: all 0.3s ease;
+
+                &:focus {
+                    outline: none;
+                    border-color: $accent-color;
+                    box-shadow: 0 0 0 3px rgba($accent-color, 0.1);
+                }
+
+                &::placeholder {
+                    color: #9ca3af;
+                }
+
+                &:invalid:not(:placeholder-shown) {
+                    border-color: $error-color;
+                }
+
+                &:valid:not(:placeholder-shown) {
+                    border-color: $success-color;
+                }
+            }
+
+            .password-toggle {
+                position: absolute;
+                right: 1rem;
+                background: none;
+                border: none;
+                cursor: pointer;
+                padding: 0.25rem;
+                color: $text-light;
+                transition: color 0.3s ease;
+
+                &:hover {
+                    color: $text-dark;
+                }
+
+                svg {
+                    width: 20px;
+                    height: 20px;
+                    fill: currentColor;
+                }
+            }
+        }
+    }
+}
+
+// Forgot password link
+.forgot-password {
+    text-align: right;
+    margin-bottom: 1.5rem;
+
+    a {
+        color: $accent-color;
+        text-decoration: none;
+        font-size: 0.875rem;
+        font-weight: 500;
+
+        &:hover {
+            text-decoration: underline;
+        }
+    }
+}
+
+// Submit button
+.login-btn {
+    width: 100%;
+    padding: 1rem;
+    background: linear-gradient(135deg, $primary-color, $accent-color);
+    color: white;
+    border: none;
+    border-radius: 12px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    margin-bottom: 1.5rem;
+    position: relative;
+    overflow: hidden;
+
+    &::before {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: -100%;
+        width: 100%;
+        height: 100%;
+        background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+        transition: left 0.5s;
+    }
+
+    &:hover:not(:disabled) {
+        transform: translateY(-2px);
+        box-shadow: 0 10px 25px rgba($primary-color, 0.3);
+
+        &::before {
+            left: 100%;
+        }
+    }
+
+    &:active:not(:disabled) {
+        transform: translateY(0);
+    }
+
+    &:disabled {
+        opacity: 0.6;
+        cursor: not-allowed;
+        transform: none;
+    }
+
+    .loading-spinner {
+        display: inline-block;
+        width: 18px;
+        height: 18px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-radius: 50%;
+        border-top-color: white;
+        animation: spin 1s linear infinite;
+        margin-right: 0.5rem;
+    }
+}
+
+// Register link
+.register-link {
+    text-align: center;
+
+    p {
+        color: $text-light;
+        font-size: 0.9rem;
+        margin: 0;
+
+        a {
+            color: $primary-color;
+            text-decoration: none;
+            font-weight: 600;
+            transition: color 0.3s ease;
+
+            &:hover {
+                color: $secondary-color;
+                text-decoration: underline;
+            }
+        }
+    }
+}
+
+// Responsive design
+@media (max-width: 768px) {
+    .login-page {
+        padding: 1rem;
+    }
+
+    .login-container {
+        flex-direction: column;
+        max-width: 500px;
+    }
+
+    .hotel-info-side {
+        padding: 2rem 1.5rem;
+
+        .hotel-logo {
+            margin-bottom: 1.5rem;
+
+            .hotel-name {
+                font-size: 1.75rem;
+            }
+        }
+
+        .welcome-message {
+            margin-bottom: 1.5rem;
+
+            h3 {
+                font-size: 1.25rem;
+                margin-bottom: 0.75rem;
+            }
+
+            p {
+                font-size: 0.85rem;
+            }
+        }
+
+        .hotel-features {
+            margin-bottom: 1.5rem;
+
+            .feature-item {
+                margin-bottom: 1rem;
+
+                .feature-text {
+                    h4 {
+                        font-size: 0.9rem;
+                    }
+
+                    p {
+                        font-size: 0.8rem;
+                    }
+                }
+            }
+        }
+    }
+
+    .login-card {
+        padding: 2rem 1.5rem;
+    }
+
+    .floating-shape {
+        opacity: 0.5;
+
+        &.shape-2,
+        &.shape-4 {
+            display: none;
+        }
+    }
+}
+/* error text */
+.error-msg {
+    color: red;
+    font-size: 13px;
+    margin-top: 5px;
+}
+
+
+/* red border when error */
+input.ng-invalid.ng-touched {
+    border: 1px solid red;
+    outline: none;
+}
+
+
+/* green border when correct (optional) */
+input.ng-valid.ng-touched {
+    border: 1px solid green;
+}
+
+@media (max-width: 480px) {
+    .login-container {
+        margin: 0.5rem;
+    }
+
+    .hotel-info-side {
+        padding: 1.5rem 1rem;
+    }
+
+    .login-card {
+        padding: 1.5rem 1rem;
+    }
+
+    .hotel-info-side .hotel-logo .hotel-name {
+        font-size: 1.5rem;
+    }
+
+    .form-group .input-wrapper input {
+        padding: 0.875rem 0.875rem 0.875rem 2.75rem;
+    }
+
+    .form-header h2 {
+        font-size: 1.5rem;
+    }
+}

@@ -1,0 +1,280 @@
+<div class="booking-requests">
+
+    <!-- Stats Cards -->
+    <div class="stats-section">
+        <div class="stat-card total-card">
+            <div class="stat-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M16.5,16L15.5,17L12,13.5L8.5,17L7.5,16L11,12.5L7.5,9L8.5,8L12,11.5L15.5,8L16.5,9L13,12.5L16.5,16Z" />
+                </svg>
+            </div>
+            <div class="stat-content">
+                <div class="stat-number">{{ bookings.length }}</div>
+                <div class="stat-label">Total Bookings</div>
+            </div>
+        </div>
+
+        <div class="stat-card pending-card">
+            <div class="stat-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,6A1.5,1.5 0 0,1 13.5,7.5A1.5,1.5 0 0,1 12,9A1.5,1.5 0 0,1 10.5,7.5A1.5,1.5 0 0,1 12,6M9.5,10.5H14.5V17H12.5V12.5H10.5V10.5H9.5Z" />
+                </svg>
+            </div>
+            <div class="stat-content">
+                <div class="stat-number">{{ getPendingBookingsCount() }}</div>
+                <div class="stat-label">Pending Approval</div>
+            </div>
+        </div>
+
+        <div class="stat-card confirmed-card">
+            <div class="stat-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M11,16.5L18,9.5L16.59,8.09L11,13.67L7.41,10.09L6,11.5L11,16.5Z" />
+                </svg>
+            </div>
+            <div class="stat-content">
+                <div class="stat-number">{{ getConfirmedBookingsCount() }}</div>
+                <div class="stat-label">Confirmed</div>
+            </div>
+        </div>
+
+        <div class="stat-card rejected-card">
+            <div class="stat-icon">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M15.46,15.46L16.87,14.04L13.41,10.59L16.87,7.13L15.46,5.72L12,9.17L8.54,5.72L7.13,7.13L10.59,10.59L7.13,14.04L8.54,15.46L12,12L15.46,15.46Z" />
+                </svg>
+            </div>
+            <div class="stat-content">
+                <div class="stat-number">{{ getRejectedBookingsCount() }}</div>
+                <div class="stat-label">Rejected</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Loading State -->
+    <div class="loading-state" *ngIf="isLoading && bookings.length === 0">
+        <div class="loading-spinner"></div>
+        <p>Loading booking requests...</p>
+    </div>
+
+    <!-- Empty State -->
+    <div class="empty-state" *ngIf="getFilteredBookings().length === 0 && !isLoading">
+        <div class="empty-icon">
+            <svg viewBox="0 0 24 24" fill="currentColor">
+                <path
+                    d="M19,3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,3 19,3M16.5,16L15.5,17L12,13.5L8.5,17L7.5,16L11,12.5L7.5,9L8.5,8L12,11.5L15.5,8L16.5,9L13,12.5L16.5,16Z" />
+            </svg>
+        </div>
+        <h3>No Bookings Found</h3>
+    </div>
+
+    <!-- Bookings Grid -->
+    <div class="bookings-grid" *ngIf="getFilteredBookings().length > 0">
+        <div class="booking-card" *ngFor="let booking of getFilteredBookings()">
+            <!-- Status Badge -->
+            <div class="status-badge" [ngClass]="booking.status">
+                <svg *ngIf="booking.status === 'pending'" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12,2A10,10 0 0,0 2,12A10,10 0 0,0 12,22A10,10 0 0,0 22,12A10,10 0 0,0 12,2M12,6A1.5,1.5 0 0,1 13.5,7.5A1.5,1.5 0 0,1 12,9A1.5,1.5 0 0,1 10.5,7.5A1.5,1.5 0 0,1 12,6M9.5,10.5H14.5V17H12.5V12.5H10.5V10.5H9.5Z" />
+                </svg>
+                <svg *ngIf="booking.status === 'confirmed'" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M11,16.5L18,9.5L16.59,8.09L11,13.67L7.41,10.09L6,11.5L11,16.5Z" />
+                </svg>
+                <svg *ngIf="booking.status === 'rejected'" viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M15.46,15.46L16.87,14.04L13.41,10.59L16.87,7.13L15.46,5.72L12,9.17L8.54,5.72L7.13,7.13L10.59,10.59L7.13,14.04L8.54,15.46L12,12L15.46,15.46Z" />
+                </svg>
+                <span class="status-text">{{ booking.status }}</span>
+            </div>
+
+            <!-- Card Header -->
+            <div class="card-header">
+                <div class="booking-id">
+                    <h3>Booking #{{ booking._id?.slice(-6) || booking.id }}</h3>
+                    <span class="booking-date">{{ formatDateTime(booking.createdAt) }}</span>
+                </div>
+                <div class="guest-info">
+                    <div class="guest-name">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
+                        </svg>
+                        <span>{{ booking.userId?.username || booking.user }}</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Card Content -->
+            <div class="card-content">
+                <div class="booking-info">
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M7,13H17V19H7V13M9,11A1,1 0 0,0 8,12H6A1,1 0 0,0 5,13V18A1,1 0 0,0 6,19H8A1,1 0 0,0 9,18V16H15V18A1,1 0 0,0 16,19H18A1,1 0 0,0 19,18V13A1,1 0 0,0 18,12H16A1,1 0 0,0 15,11H9M7,10H17L19,8V7A1,1 0 0,0 18,6H6A1,1 0 0,0 5,7V8L7,10Z" />
+                            </svg>
+                        </div>
+                        <div class="info-content">
+                            <div class="info-label">Room</div>
+                            <div class="info-value">{{ booking.roomId?.roomNumber || booking.roomNumber }}</div>
+                            <div class="info-subtext">{{ booking.roomId?.type || booking.roomType }}</div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,5 19,5H18V3M17,12H12V17H17V12Z" />
+                            </svg>
+                        </div>
+                        <div class="info-content">
+                            <div class="info-label">Check-in</div>
+                            <div class="info-value">{{ formatDate(booking.checkIn) }}</div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M19,19H5V8H19M16,1V3H8V1H6V3H5C3.89,3 3,3.89 3,5V19A2,2 0 0,0 5,21H19A2,2 0 0,0 21,19V5C21,3.89 20.1,5 19,5H18V3M17,12H12V17H17V12Z" />
+                            </svg>
+                        </div>
+                        <div class="info-content">
+                            <div class="info-label">Check-out</div>
+                            <div class="info-value">{{ formatDate(booking.checkOut) }}</div>
+                        </div>
+                    </div>
+
+                    <div class="info-item">
+                        <div class="info-icon">
+                            <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path
+                                    d="M16,4C18.21,4 20,5.79 20,8C20,10.21 18.21,12 16,12C13.79,12 12,10.21 12,8C12,5.79 13.79,4 16,4M16,14C20.42,14 24,15.79 24,18V20H8V18C8,15.79 11.58,14 16,14M6,6H2V4H6V6M6,10H2V8H6V10M6,14H2V12H6V14Z" />
+                            </svg>
+                        </div>
+                        <div class="info-content">
+                            <div class="info-label">Guests</div>
+                            <div class="info-value">{{ booking.guests }} persons</div>
+                            <div class="info-subtext">{{ getDaysDifference(booking.checkIn, booking.checkOut) }} nights
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="price-section">
+                    <div class="price-label">Total Amount</div>
+                    <div class="price-value">₹{{ booking.totalPrice }}</div>
+                </div>
+
+                <!-- Special Requests -->
+                <div class="special-requests" *ngIf="booking.specialRequests">
+                    <div class="requests-label">Special Requests:</div>
+                    <div class="requests-text">{{ booking.specialRequests }}</div>
+                </div>
+            </div>
+
+            <!-- Card Actions -->
+            <div class="card-actions" *ngIf="booking.status === 'pending'">
+                <button class="action-btn reject-btn" (click)="rejectBooking(booking._id)">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                    </svg>
+                    Reject
+                </button>
+                <button class="action-btn approve-btn" (click)="approveBooking(booking._id)">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z" />
+                    </svg>
+                    Approve
+                </button>
+            </div>
+
+            <!-- Status Message for non-pending bookings -->
+            <div class="status-message" *ngIf="booking.status !== 'pending'">
+                <span *ngIf="booking.status === 'confirmed'" class="confirmed-message">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M11,16.5L18,9.5L16.59,8.09L11,13.67L7.41,10.09L6,11.5L11,16.5Z" />
+                    </svg>
+                    Booking Confirmed
+                </span>
+                <span *ngIf="booking.status === 'rejected'" class="rejected-message">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12,2A10,10 0 0,1 22,12A10,10 0 0,1 12,22A10,10 0 0,1 2,12A10,10 0 0,1 12,2M15.46,15.46L16.87,14.04L13.41,10.59L16.87,7.13L15.46,5.72L12,9.17L8.54,5.72L7.13,7.13L10.59,10.59L7.13,14.04L8.54,15.46L12,12L15.46,15.46Z" />
+                    </svg>
+                    Booking Rejected
+                </span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Confirmation Modal -->
+<div class="modal-overlay" *ngIf="showStatusConfirm" (click)="cancelStatusAction()">
+    <div class="modal-content" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h3>{{ actionType === 'approve' ? 'Approve Booking' : 'Reject Booking' }}</h3>
+            <button class="modal-close" (click)="cancelStatusAction()">
+                <svg viewBox="0 0 24 24" fill="currentColor">
+                    <path
+                        d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                </svg>
+            </button>
+        </div>
+
+        <div class="modal-body">
+            <div class="confirmation-message">
+                <div class="confirmation-icon" [ngClass]="actionType">
+                    <svg *ngIf="actionType === 'approve'" viewBox="0 0 24 24" fill="currentColor">
+                        <path d="M9,20.42L2.79,14.21L5.62,11.38L9,14.77L18.88,4.88L21.71,7.71L9,20.42Z" />
+                    </svg>
+                    <svg *ngIf="actionType === 'reject'" viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M19,6.41L17.59,5L12,10.59L6.41,5L5,6.41L10.59,12L5,17.59L6.41,19L12,13.41L17.59,19L19,17.59L13.41,12L19,6.41Z" />
+                    </svg>
+                </div>
+                <p>Are you sure you want to {{ actionType }} this booking request?</p>
+            </div>
+
+            <div class="booking-summary" *ngIf="actionBooking">
+                <div class="summary-item">
+                    <span class="summary-label">Guest:</span>
+                    <span class="summary-value">{{ actionBooking.userId?.username || actionBooking.user }}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Room:</span>
+                    <span class="summary-value">{{ actionBooking.roomId?.roomNumber || actionBooking.roomNumber
+                        }}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Check-in:</span>
+                    <span class="summary-value">{{ formatDate(actionBooking.checkIn) }}</span>
+                </div>
+                <div class="summary-item">
+                    <span class="summary-label">Total:</span>
+                    <span class="summary-value price">₹{{ actionBooking.totalPrice }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="modal-actions">
+            <button class="modal-btn cancel-btn" (click)="cancelStatusAction()" [disabled]="isLoading">
+                Cancel
+            </button>
+            <button class="modal-btn confirm-btn" [ngClass]="actionType" (click)="confirmStatusAction()"
+                [disabled]="isLoading">
+                <div class="loading-spinner" *ngIf="isLoading"></div>
+                {{ actionType === 'approve' ? 'Approve Booking' : 'Reject Booking' }}
+            </button>
+        </div>
+    </div>
+</div>

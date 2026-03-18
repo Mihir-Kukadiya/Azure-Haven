@@ -1,0 +1,440 @@
+================================================================================
+                    HOTEL BOOKING WEBSITE - AZURE HAVEN
+                           COMPREHENSIVE SUMMARY
+================================================================================
+
+PROJECT NAME: Azure Haven Hotel Booking System
+TECHNOLOGY STACK:
+- Frontend: Angular 17+
+- Backend: Node.js with Express.js
+- Database: MongoDB with Mongoose ODM
+- Authentication: JWT (JSON Web Tokens)
+
+================================================================================
+                              TABLE OF CONTENTS
+================================================================================
+
+1. PROJECT OVERVIEW
+2. USER ROLES & PERMISSIONS
+3. AUTHENTICATION SYSTEM
+4. USER FEATURES & FUNCTIONALITIES
+5. ADMIN FEATURES & FUNCTIONALITIES
+6. ROOM MANAGEMENT
+7. BOOKING SYSTEM
+8. API ENDPOINTS
+9. DATABASE MODELS
+10. TECHNICAL IMPLEMENTATION DETAILS
+
+================================================================================
+                            1. PROJECT OVERVIEW
+================================================================================
+
+Azure Haven is a full-stack hotel booking website that allows users to browse
+rooms, make bookings, and manage their reservations. Administrators can manage
+rooms, approve/reject bookings, and manage user accounts.
+
+The application consists of:
+- Frontend: Angular-based single-page application (SPA)
+- Backend: RESTful API built with Express.js
+- Database: MongoDB for data persistence
+
+================================================================================
+                         2. USER ROLES & PERMISSIONS
+================================================================================
+
+The system supports two user roles:
+
+A. ADMIN ROLE:
+   - Username: aryan gadhiya
+   - Password: aryan3101
+   - Full access to all administrative functions
+   - Can manage rooms (add, edit, delete)
+   - Can view and manage all bookings
+   - Can approve or reject booking requests
+   - Can view and manage user accounts
+   - Access to dashboard with statistics
+
+B. USER ROLE:
+   - Regular registered users
+   - Can register new accounts
+   - Can browse available rooms
+   - Can create booking requests
+   - Can view their own booking history
+   - Can update their profile
+
+================================================================================
+                        3. AUTHENTICATION SYSTEM
+================================================================================
+
+A. REGISTRATION:
+   - Users can register with the following fields:
+     * Username (unique, required)
+     * Password (minimum 6 characters, required)
+     * Email (unique, required)
+     * Phone number (required)
+     * City (required)
+   - Default role is "user"
+   - Password is hashed using bcryptjs (10 salt rounds)
+
+B. LOGIN:
+   - Users login with username and password
+   - JWT token generated upon successful login
+   - Token stored in localStorage
+   - Token expires in 1 day
+   - Redirects based on user role:
+     * Admin → /admin dashboard
+     * User → /user dashboard
+
+C. TOKEN-BASED AUTHENTICATION:
+   - JWT tokens used for secure API access
+   - Auth interceptor automatically adds token to requests
+   - Protected routes require valid token
+   - Token contains user ID and role
+
+================================================================================
+                      4. USER FEATURES & FUNCTIONALITIES
+================================================================================
+
+A. USER DASHBOARD:
+   - Welcome page with hotel overview
+   - Statistics display:
+     * Total bookings
+     * Active bookings (confirmed)
+     * Completed bookings
+   - Quick access to all features
+
+B. ROOM BROWSING:
+   - View all available rooms
+   - Room details include:
+     * Room number
+     * Room type (Standard Single, Standard Double, Deluxe, Suite, Presidential Suite)
+     * Price per night (INR)
+     * Capacity (number of guests)
+     * Amenities
+     * Status (available/occupied/maintenance)
+   - Filter rooms by availability
+   - Search rooms by room number, type, or amenities
+
+C. BOOKING A ROOM:
+   - Select check-in and check-out dates
+   - Select number of guests (based on room capacity)
+   - Add special requests (optional)
+   - Automatic price calculation:
+     * Total = Number of nights × Room price
+   - Validation:
+     * Check-in date must be today or future
+     * Check-out date must be after check-in
+     * Guests must be within room capacity
+
+D. BOOKING MANAGEMENT:
+   - View all personal bookings
+   - Booking status tracking:
+     * Pending (awaiting admin approval)
+     * Confirmed (approved by admin)
+     * Rejected (declined by admin)
+     * Completed (past check-out date)
+   - Booking details:
+     * Room information
+     * Check-in/Check-out dates
+     * Number of guests
+     * Total price
+     * Status
+
+E. PROFILE MANAGEMENT:
+   - View profile information
+   - Profile displays:
+     * Username
+     * Email
+     * Phone
+     * City
+     * Role
+     * Account creation date
+
+================================================================================
+                      5. ADMIN FEATURES & FUNCTIONALITIES
+================================================================================
+
+A. ADMIN DASHBOARD:
+   - Overview statistics:
+     * Total rooms
+     * Pending bookings
+     * Confirmed bookings
+     * Total users
+   - Quick navigation to all admin sections
+
+B. ROOM MANAGEMENT:
+   - Add new rooms with:
+     * Room number (unique, alphanumeric)
+     * Room type selection
+     * Price (auto-populated based on type)
+     * Capacity (auto-populated based on type)
+     * Amenities (optional)
+     * Status (available/occupied/maintenance)
+   - Predefined room types:
+     * Standard Single: ₹2,500/night, 1 guest
+     * Standard Double: ₹3,500/night, 2 guests
+     * Deluxe Room: ₹5,000/night, 3 guests
+     * Suite: ₹8,000/night, 4 guests
+     * Presidential Suite: ₹15,000/night, 6 guests
+   - Edit existing rooms
+   - Delete rooms (except occupied rooms)
+   - Search and filter rooms
+   - Real-time status updates
+
+C. BOOKING REQUESTS MANAGEMENT:
+   - View all bookings (pending, confirmed, rejected)
+   - Filter bookings by status
+   - Approve pending bookings
+   - Reject pending bookings
+   - View booking details:
+     * User information
+     * Room information
+     * Booking dates
+     * Number of guests
+     * Total price
+     * Special requests
+   - Statistics:
+     * Pending count
+     * Confirmed count
+     * Rejected count
+
+D. USER MANAGEMENT:
+   - View all registered users (excluding admins)
+   - User details:
+     * Username
+     * Email
+     * Phone
+     * City
+     * Role
+     * Account creation date
+   - Delete user accounts
+
+================================================================================
+                          6. ROOM MANAGEMENT
+================================================================================
+
+ROOM PROPERTIES:
+- roomNumber: Unique identifier (alphanumeric)
+- type: Room category (Standard Single, Standard Double, Deluxe, Suite, Presidential Suite)
+- price: Price per night in INR
+- capacity: Maximum number of guests
+- amenities: Description of room features
+- status: Current availability (available, occupied, maintenance)
+- createdAt: Timestamp
+- updatedAt: Timestamp
+
+ROOM TYPES & PRICING:
+┌─────────────────────────┬──────────────┬──────────┐
+│ Room Type               │ Price/Night  │ Capacity │
+├─────────────────────────┼──────────────┼──────────┤
+│ Standard Single         │ ₹2,500       │ 1        │
+│ Standard Double         │ ₹3,500       │ 2        │
+│ Deluxe Room             │ ₹5,000       │ 3        │
+│ Suite                   │ ₹8,000       │ 4        │
+│ Presidential Suite      │ ₹15,000      │ 6        │
+└─────────────────────────┴──────────────┴──────────┘
+
+================================================================================
+                          7. BOOKING SYSTEM
+================================================================================
+
+BOOKING PROPERTIES:
+- userId: Reference to User
+- roomId: Reference to Room
+- checkIn: Check-in date
+- checkOut: Check-out date
+- guests: Number of guests
+- totalPrice: Calculated total (nights × price)
+- status: Booking status (pending, confirmed, rejected)
+- specialRequests: Optional user notes
+- createdAt: Timestamp
+- updatedAt: Timestamp
+
+BOOKING WORKFLOW:
+1. User selects a room
+2. User fills booking form (dates, guests, special requests)
+3. System validates availability and inputs
+4. Booking created with "pending" status
+5. Room status automatically changes to "occupied"
+6. Admin reviews and approves/rejects booking
+7. If approved: booking status = "confirmed"
+8. If rejected: booking status = "rejected"
+9. Room status syncs with booking status
+
+PRICE CALCULATION:
+- Total Price = Number of Nights × Room Price per Night
+- Number of Nights = Check-out Date - Check-in Date
+
+================================================================================
+                          8. API ENDPOINTS
+================================================================================
+
+AUTH ROUTES (/api/auth):
+- POST /register     - Register new user
+- POST /login        - User login
+- GET /users         - Get all users (admin only)
+
+USER ROUTES (/api/users):
+- GET /              - Get all users (admin only)
+- GET /:id           - Get user by ID
+- PATCH /:id         - Update user
+- DELETE /:id        - Delete user
+
+ROOM ROUTES (/api/rooms):
+- POST /             - Create new room
+- GET /              - Get all rooms
+- GET /:id           - Get room by ID
+- PATCH /:id         - Update room
+- DELETE /:id        - Delete room
+
+BOOKING ROUTES (/api/bookings):
+- POST /             - Create new booking
+- GET /              - Get all bookings
+- GET /:id           - Get booking by ID
+- PATCH /:id/status  - Update booking status
+- DELETE /:id        - Delete booking
+- GET /stats/:userId - Get user booking statistics
+
+================================================================================
+                         9. DATABASE MODELS
+================================================================================
+
+USER MODEL:
+{
+  username: String (required, unique)
+  password: String (required, hashed)
+  email: String (required, unique)
+  phone: String (required)
+  city: String (required)
+  role: String (enum: 'admin', 'user', default: 'user')
+  createdAt: Date
+  updatedAt: Date
+}
+
+ROOM MODEL:
+{
+  roomNumber: String (required, unique)
+  type: String (required)
+  price: Number (required)
+  capacity: Number (required)
+  amenities: String
+  status: String (enum: 'available', 'occupied', 'maintenance', default: 'available')
+  createdAt: Date
+  updatedAt: Date
+}
+
+BOOKING MODEL:
+{
+  userId: ObjectId (ref: User, required)
+  roomId: ObjectId (ref: Room, required)
+  checkIn: Date (required)
+  checkOut: Date (required)
+  guests: Number (required)
+  totalPrice: Number (required)
+  status: String (enum: 'pending', 'confirmed', 'rejected', default: 'pending')
+  specialRequests: String
+  createdAt: Date
+  updatedAt: Date
+}
+
+================================================================================
+                   10. TECHNICAL IMPLEMENTATION DETAILS
+================================================================================
+
+FRONTEND COMPONENTS:
+├── Login Component
+│   └── User authentication with role-based redirect
+├── Register Component
+│   └── New user registration with validation
+├── User Dashboard
+│   ├── Overview (stats and recent bookings)
+│   ├── Rooms (browse available rooms)
+│   ├── Booking Form (create new booking)
+│   ├── Bookings (view booking history)
+│   └── Profile (view user info)
+├── Admin Dashboard
+│   ├── Overview (statistics)
+│   ├── Room Management (CRUD operations)
+│   ├── Booking Requests (approve/reject)
+│   └── User Management (view/delete users)
+└── Toast Component
+    └── Notification system (success, error, info, warning)
+
+SERVICES:
+- AuthService: Authentication and user management
+- BookingService: Booking operations
+- RoomService: Room operations
+- ToastService: Notification management
+
+MIDDLEWARE:
+- authInterceptor: Automatically attaches JWT token to requests
+- isAuthenticated: Protects backend routes
+
+DATABASE:
+- Name: azure_haven_hotelhehe
+- Host: localhost:27017
+- Connection: Mongoose ODM
+
+SERVER:
+- Port: 3000
+- CORS: Enabled for http://localhost:4200
+
+================================================================================
+                              HOW IT WORKS
+================================================================================
+
+1. USER REGISTRATION & LOGIN:
+   - User visits the website
+   - New users can register with their details
+   - Existing users can login with username/password
+   - Upon login, JWT token is stored in localStorage
+   - User is redirected to appropriate dashboard based on role
+
+2. ROOM BOOKING FLOW:
+   - User browses available rooms
+   - User selects a room
+   - User fills booking form (dates, guests)
+   - System calculates total price
+   - Booking request is submitted
+   - Admin receives notification
+   - Admin approves/rejects booking
+   - User is notified of decision
+
+3. ADMIN MANAGEMENT:
+   - Admin logs in to admin dashboard
+   - Can add/edit/delete rooms
+   - Can view all booking requests
+   - Can approve or reject bookings
+   - Can manage user accounts
+   - Can view statistics
+
+================================================================================
+                              FEATURES LIST
+================================================================================
+
+✓ User Registration with validation
+✓ User Login with JWT authentication
+✓ Role-based access control (Admin/User)
+✓ Room browsing and searching
+✓ Room booking with date selection
+✓ Automatic price calculation
+✓ Booking status tracking
+✓ Admin dashboard with statistics
+✓ Room CRUD operations
+✓ Booking approval/rejection system
+✓ User management
+✓ Real-time status updates
+✓ Toast notifications
+✓ Password visibility toggle
+✓ Form validation
+✓ Search and filter functionality
+✓ Responsive design
+✓ Token-based authentication
+✓ Protected routes
+✓ Error handling
+✓ Loading states
+
+================================================================================
+                           END OF SUMMARY
+================================================================================
+

@@ -1,0 +1,84 @@
+<div class="booking-form-overlay" (click)="onCancel()">
+    <div class="booking-form-modal" (click)="$event.stopPropagation()">
+        <div class="modal-header">
+            <h3>Book Room {{ room?.roomNumber }}</h3>
+            <button class="close-btn" (click)="onCancel()">×</button>
+        </div>
+
+        <div class="modal-body">
+            <div class="room-summary">
+                <div class="room-info">
+                    <h4>{{ room?.type }}</h4>
+                    <p class="room-price">₹{{ room?.price }}/night</p>
+                    <p class="room-capacity">Capacity: {{ room?.capacity }} persons</p>
+                    <p class="room-amenities">{{ room?.amenities }}</p>
+                </div>
+            </div>
+
+            <form (ngSubmit)="onSubmit()" class="booking-form">
+                <div class="form-row">
+                    <div class="form-group">
+                        <label for="checkIn">Check-in Date *</label>
+                        <input type="date" id="checkIn" [(ngModel)]="bookingData.checkIn" name="checkIn" [min]="minDate"
+                            (change)="updateCheckOutMinDate()" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="checkOut">Check-out Date *</label>
+                        <input type="date" id="checkOut" [(ngModel)]="bookingData.checkOut" name="checkOut"
+                            [min]="bookingData.checkIn || minDate" required>
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="guests">Number of Guests *</label>
+                    <select id="guests" [(ngModel)]="bookingData.guests" name="guests" required>
+                        <option *ngFor="let num of [].constructor(room?.capacity); let i = index" [value]="i + 1">
+                            {{ i + 1 }} {{ i === 0 ? 'Guest' : 'Guests' }}
+                        </option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label for="specialRequests">Special Requests</label>
+                    <textarea id="specialRequests" [(ngModel)]="bookingData.specialRequests" name="specialRequests"
+                        placeholder="Any special requests or preferences..." rows="3"></textarea>
+                </div>
+
+                <div class="booking-summary" *ngIf="bookingData.checkIn && bookingData.checkOut">
+                    <h4>Booking Summary</h4>
+                    <div class="summary-item">
+                        <span>Check-in:</span>
+                        <span>{{ bookingData.checkIn | date:'mediumDate' }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Check-out:</span>
+                        <span>{{ bookingData.checkOut | date:'mediumDate' }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Nights:</span>
+                        <span>{{ getNumberOfNights() }}</span>
+                    </div>
+                    <div class="summary-item">
+                        <span>Guests:</span>
+                        <span>{{ bookingData.guests }}</span>
+                    </div>
+                    <div class="summary-item total">
+                        <span>Total Price:</span>
+                        <span>₹{{ calculateTotalPrice() }}</span>
+                    </div>
+                </div>
+
+                <div class="form-actions">
+                    <button type="button" class="cancel-btn" (click)="onCancel()">
+                        Cancel
+                    </button>
+                    <button type="submit" class="submit-btn" [disabled]="isLoading">
+                        <span *ngIf="isLoading" class="loading-spinner"></span>
+                        {{ isLoading ? 'Submitting...' : 'Book Now' }}
+                    </button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>

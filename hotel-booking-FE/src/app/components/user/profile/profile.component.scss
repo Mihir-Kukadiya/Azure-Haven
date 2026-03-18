@@ -1,0 +1,180 @@
+// ============================================
+// User Profile - Enhanced Styles
+// ============================================
+
+// Variables
+$white: #ffffff;
+$gradient-primary: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+
+// Animations
+@keyframes fadeInUp {
+    from {
+        opacity: 0;
+        transform: translateY(20px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+// Main Section
+.profile-section {
+    .profile-card {
+        background: $white;
+        border-radius: 20px;
+        padding: 2rem;
+        box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+        border: 1px solid #f3f4f6;
+        max-width: 600px;
+        animation: fadeInUp 0.5s ease-out;
+
+        .profile-header {
+            display: flex;
+            align-items: center;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+            padding-bottom: 1.5rem;
+            border-bottom: 2px solid #f3f4f6;
+
+            .profile-avatar {
+                width: 88px;
+                height: 88px;
+                background: $gradient-primary;
+                border-radius: 20px;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                box-shadow: 0 8px 25px rgba(102, 126, 234, 0.35);
+                transition: transform 0.3s ease;
+
+                &:hover {
+                    transform: scale(1.05) rotate(3deg);
+                }
+
+                .avatar-text {
+                    color: white;
+                    font-weight: 800;
+                    font-size: 2rem;
+                    letter-spacing: -1px;
+                }
+            }
+
+            .profile-info {
+                flex: 1;
+
+                h3 {
+                    font-size: 1.5rem;
+                    font-weight: 700;
+                    color: #111827;
+                    margin: 0 0 0.375rem 0;
+                    letter-spacing: -0.5px;
+                }
+
+                .user-email {
+                    color: #6b7280;
+                    margin: 0;
+                    font-size: 0.95rem;
+                    font-weight: 500;
+                }
+            }
+        }
+
+        .profile-details {
+            .detail-item {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                padding: 1.125rem 0;
+                border-bottom: 1px solid #f3f4f6;
+                transition: all 0.2s ease;
+                margin: 0 -0.5rem;
+                padding-left: 0.5rem;
+                padding-right: 0.5rem;
+                border-radius: 10px;
+
+                &:hover {
+                    background: #f9fafb;
+                }
+
+                &:last-child {
+                    border-bottom: none;
+                }
+
+                .detail-label {
+                    font-weight: 600;
+                    color: #6b7280;
+                    font-size: 0.9rem;
+                    display: flex;
+                    align-items: center;
+                    gap: 0.5rem;
+
+                    &::before {
+                        content: '';
+                        width: 8px;
+                        height: 8px;
+                        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+                        border-radius: 50%;
+                    }
+                }
+
+                .detail-value {
+                    font-weight: 700;
+                    color: #111827;
+                    font-size: 0.95rem;
+                }
+            }
+        }
+    }
+}
+
+// Responsive
+@media (max-width: 768px) {
+    .profile-section {
+        .profile-card {
+            padding: 1.5rem;
+            border-radius: 16px;
+
+            .profile-header {
+                flex-direction: column;
+                text-align: center;
+                gap: 1rem;
+
+                .profile-avatar {
+                    width: 80px;
+                    height: 80px;
+
+                    .avatar-text {
+                        font-size: 1.75rem;
+                    }
+                }
+            }
+
+            .profile-details .detail-item {
+                flex-direction: column;
+                gap: 0.5rem;
+                text-align: center;
+
+                .detail-label::before {
+                    display: none;
+                }
+            }
+        }
+    }
+}
+
+@media (max-width: 480px) {
+    .profile-section {
+        .profile-card {
+            padding: 1.25rem;
+            border-radius: 14px;
+
+            .profile-header {
+                .profile-info h3 {
+                    font-size: 1.25rem;
+                }
+            }
+        }
+    }
+}
+

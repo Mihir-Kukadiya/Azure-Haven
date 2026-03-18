@@ -1,0 +1,193 @@
+<div class="login-page">
+    <!-- Animated Background -->
+    <div class="background-animation">
+        <div class="floating-shape shape-1"></div>
+        <div class="floating-shape shape-2"></div>
+        <div class="floating-shape shape-3"></div>
+        <div class="floating-shape shape-4"></div>
+        <div class="floating-shape shape-5"></div>
+        <div class="floating-shape shape-6"></div>
+    </div>
+
+    <div class="login-container">
+        <!-- Left Side - Hotel Information -->
+        <div class="hotel-info-side">
+            <!-- Hotel Header -->
+            <div class="hotel-logo">
+                <div class="hotel-icon">
+                    <span class="logo-text">AH</span>
+                </div>
+                <h1 class="hotel-name">Azure Haven</h1>
+                <p class="hotel-tagline">Luxury Hospitality Experience</p>
+            </div>
+
+            <!-- Welcome Message -->
+            <div class="welcome-message">
+                <h3>Welcome Back!</h3>
+                <p>We're delighted to have you return to Azure Haven. Sign in to access your account and continue your
+                    luxury hospitality journey with us.</p>
+            </div>
+
+            <!-- Hotel Features -->
+            <div class="hotel-features">
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12,2A3,3 0 0,1 15,5V7H9V5A3,3 0 0,1 12,2M21,8V7A2,2 0 0,0 19,5H17V7A1,1 0 0,1 16,8H8A1,1 0 0,1 7,7V5H5A2,2 0 0,0 3,7V8A2,2 0 0,0 5,10V19A2,2 0 0,0 7,21H17A2,2 0 0,0 19,19V10A2,2 0 0,0 21,8Z" />
+                        </svg>
+                    </div>
+                    <div class="feature-text">
+                        <h4>Exclusive Member Benefits</h4>
+                        <p>Enjoy priority booking and special discounts</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12,2L13.09,8.26L22,9L17.5,13.74L18.18,22L12,19L5.82,22L6.5,13.74L2,9L10.91,8.26L12,2Z" />
+                        </svg>
+                    </div>
+                    <div class="feature-text">
+                        <h4>Personalized Experience</h4>
+                        <p>Your preferences saved for seamless stays</p>
+                    </div>
+                </div>
+
+                <div class="feature-item">
+                    <div class="feature-icon">
+                        <svg viewBox="0 0 24 24" fill="currentColor">
+                            <path
+                                d="M12,2C6.48,2 2,6.48 2,12C2,17.52 6.48,22 12,22C17.52,22 22,17.52 22,12C22,6.48 17.52,2 12,2M12,20C7.59,20 4,16.41 4,12C4,7.59 7.59,4 12,4C16.41,4 20,7.59 20,12C20,16.41 16.41,20 12,20M16.59,7.58L10,14.17L7.41,11.58L6,13L10,17L18,9L16.59,7.58Z" />
+                        </svg>
+                    </div>
+                    <div class="feature-text">
+                        <h4>Secure & Trusted</h4>
+                        <p>Your information is safe with us</p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Customer Rating -->
+            <div class="customer-rating">
+                <div class="stars">
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.46,13.97L5.82,21L12,17.27Z" />
+                    </svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.46,13.97L5.82,21L12,17.27Z" />
+                    </svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.46,13.97L5.82,21L12,17.27Z" />
+                    </svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.46,13.97L5.82,21L12,17.27Z" />
+                    </svg>
+                    <svg viewBox="0 0 24 24" fill="currentColor">
+                        <path
+                            d="M12,17.27L18.18,21L16.54,13.97L22,9.24L14.81,8.62L12,2L9.19,8.62L2,9.24L7.46,13.97L5.82,21L12,17.27Z" />
+                    </svg>
+                </div>
+                <div class="rating-text">Trusted by 50,000+ satisfied guests worldwide</div>
+            </div>
+        </div>
+
+        <!-- Right Side - Login Form -->
+        <div class="login-card">
+            <!-- Form Title -->
+            <div class="form-header">
+                <h2>Welcome Back</h2>
+                <p>Sign in to your account</p>
+            </div>
+
+            <!-- Login Form -->
+            <form (ngSubmit)="onSubmit()" #loginForm="ngForm" class="login-form">
+                <!-- Username Field -->
+                <div class="form-group">
+                    <label for="username">Username</label>
+                    <div class="input-wrapper">
+                        <svg class="input-icon" viewBox="0 0 24 24">
+                            <path
+                                d="M12,4A4,4 0 0,1 16,8A4,4 0 0,1 12,12A4,4 0 0,1 8,8A4,4 0 0,1 12,4M12,14C16.42,14 20,15.79 20,18V20H4V18C4,15.79 7.58,14 12,14Z" />
+                        </svg>
+                        <input type="text" id="username" name="username" [(ngModel)]="credentials.username" required
+                            placeholder="Enter your username">
+                    </div>
+                </div>
+
+                <!-- PASSWORD -->
+                <div class="form-group">
+
+                    <label for="password">Password</label>
+
+
+                    <div class="input-wrapper">
+
+                        <svg class="input-icon" viewBox="0 0 24 24">
+                            <path
+                                d="M12,17A2,2 0 0,0 14,15C14,13.89 13.1,13 12,13A2,2 0 0,0 10,15A2,2 0 0,0 12,17M18,8A2,2 0 0,1 20,10V20A2,2 0 0,1 18,22H6A2,2 0 0,1 4,20V10C4,8.89 4.9,8 6,8H7V6A5,5 0 0,1 12,1A5,5 0 0,1 17,6V8H18M12,3A3,3 0 0,0 9,6V8H15V6A3,3 0 0,0 12,3Z" />
+                        </svg>
+
+
+                        <input [type]="showPassword ? 'text' : 'password'" id="password" name="password"
+                            [(ngModel)]="credentials.password" #password="ngModel" required minlength="6"
+                            placeholder="Enter your password">
+
+
+                        <button type="button" class="password-toggle" (click)="togglePasswordVisibility()">
+                             <svg *ngIf="!showPassword" viewBox="0 0 24 24">
+                                <path
+                                    d="M12,9A3,3 0 0,0 9,12A3,3 0 0,0 12,15A3,3 0 0,0 15,12A3,3 0 0,0 12,9M12,17A5,5 0 0,1 7,12A5,5 0 0,1 12,7A5,5 0 0,1 17,12A5,5 0 0,1 12,17M12,4.5C7,4.5 2.73,7.61 1,12C2.73,16.39 7,19.5 12,19.5C17,19.5 21.27,16.39 23,12C21.27,7.61 17,4.5 12,4.5Z" />
+                            </svg>
+                            <svg *ngIf="showPassword" viewBox="0 0 24 24">
+                                <path
+                                    d="M11.83,9L15,12.16C15,12.11 15,12.05 15,12A3,3 0 0,0 12,9C11.94,9 11.89,9 11.83,9M7.53,9.8L9.08,11.35C9.03,11.56 9,11.77 9,12A3,3 0 0,0 12,15C12.22,15 12.44,14.97 12.65,14.92L14.2,16.47C13.53,16.8 12.79,17 12,17A5,5 0 0,1 7,12C7,11.21 7.2,10.47 7.53,9.8M2,4.27L4.28,6.55L4.73,7C3.08,8.3 1.78,10 1,12C2.73,16.39 7,19.5 12,19.5C13.55,19.5 15.03,19.2 16.38,18.66L16.81,19.09L19.73,22L21,20.73L3.27,3M12,7A5,5 0 0,1 17,12C17,12.64 16.87,13.26 16.64,13.82L19.57,16.75C21.07,15.5 22.27,13.86 23,12C21.27,7.61 17,4.5 12,4.5C10.6,4.5 9.26,4.75 8,5.2L10.17,7.35C10.76,7.13 11.37,7 12,7Z" />
+                            </svg>
+                        </button>
+
+                    </div>
+
+
+
+                    <!-- PASSWORD ERROR -->
+                    <div class="error-msg" *ngIf="password.invalid && password.touched">
+
+
+                        <small *ngIf="password.errors?.['required']">
+
+                            Password is required
+
+                        </small>
+
+
+                        <small *ngIf="password.errors?.['minlength']">
+
+                            Minimum 6 characters required
+
+                        </small>
+
+
+                    </div>
+
+
+                </div>
+                <!-- Submit Button -->
+                <button type="submit" class="login-btn" [disabled]="isLoading || !loginForm.form.valid">
+                    <span *ngIf="isLoading" class="loading-spinner"></span>
+                    <span>{{ isLoading ? 'Signing In...' : 'Sign In' }}</span>
+                </button>
+            </form>
+
+            <!-- Register Link -->
+            <div class="register-link">
+                <p>Don't have an account? <a routerLink="/register">Create account</a></p>
+            </div>
+        </div>
+    </div>
+</div>

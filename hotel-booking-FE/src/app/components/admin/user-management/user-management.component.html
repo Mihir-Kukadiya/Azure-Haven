@@ -1,0 +1,46 @@
+<div class="user-management">
+    <div class="users-list">
+        <div class="user-card" *ngFor="let user of users">
+            <div class="user-header">
+                <div class="user-info">
+                    <h4>{{ user.username }}</h4>
+                    <span class="role-badge" [style.background-color]="getRoleColor(user.role)">
+                        {{ user.role }}
+                    </span>
+                </div>
+                <div class="join-date">
+                    <span class="date-label">Joined:</span>
+                    <span class="date-value">{{ formatDate(user.createdAt) }}</span>
+                </div>
+            </div>
+
+            <div class="user-details">
+                <div class="detail-item">
+                    <span class="detail-label">Email:</span>
+                    <span class="detail-value">{{ user.email }}</span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">Phone:</span>
+                    <span class="detail-value">{{ user.phone }}</span>
+                </div>
+
+                <div class="detail-item">
+                    <span class="detail-label">City:</span>
+                    <span class="detail-value">{{ user.city }}</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="empty-state" *ngIf="users.length === 0 && !isLoading">
+            <div class="empty-icon">👥</div>
+            <h3>No Users Found</h3>
+            <p>No users have registered yet.</p>
+        </div>
+
+        <div class="loading-state" *ngIf="isLoading && users.length === 0">
+            <div class="loading-icon">⏳</div>
+            <h3>Loading Users...</h3>
+        </div>
+    </div>
+</div>

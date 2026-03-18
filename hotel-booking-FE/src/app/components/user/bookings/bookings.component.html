@@ -1,0 +1,27 @@
+<div class="bookings-section">
+    <div class="bookings-grid">
+        <div class="booking-card" *ngFor="let booking of bookings">
+            <div class="booking-header">
+                <h4>Booking #{{ booking._id?.slice(-6) || booking.id }}</h4>
+                <span class="status-badge" [style.background-color]="getStatusColor(booking.status)">
+                    {{ booking.status }}
+                </span>
+            </div>
+            <div class="booking-details">
+                <p><strong>Room:</strong> {{ booking.roomId?.roomNumber || booking.roomNumber }}</p>
+                <p><strong>Type:</strong> {{ booking.roomId?.type || booking.roomType }}</p>
+                <p><strong>Check-in:</strong> {{ formatDate(booking.checkIn) }}</p>
+                <p><strong>Check-out:</strong> {{ formatDate(booking.checkOut) }}</p>
+                <p><strong>Guests:</strong> {{ booking.guests }}</p>
+                <p><strong>Total:</strong> ₹{{ booking.totalPrice }}</p>
+                <p><strong>Booked on:</strong> {{ formatDate(booking.createdAt) }}</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="empty-state" *ngIf="bookings.length === 0">
+        <div class="empty-icon">📋</div>
+        <h3>No Bookings Yet</h3>
+        <p>You haven't made any bookings yet. Start by browsing our available rooms.</p>
+    </div>
+</div>

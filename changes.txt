@@ -1,0 +1,6 @@
+When any customer book specific room still that room is display in Browse Rooms which i fix it.
+Remove occupied option from Edit room and Add room and also fix when any customer book room still that room status is set Available which i fix to occupied.
+When Admin Add room then price per night and capacity is write manually, so i fix that to when admin select room type then automatic write price per night and capacity.
+I Removed edit and delete options from occupied rooms because admin approve that room so that can't delete that room and when room is occupied so admin should not edit that room.
+Also display rejected bookings in admin dashboard.
+When scroll display then also scrolled sidebar which is not look good so i fix that.
